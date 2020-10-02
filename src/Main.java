@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 import java.io.IOException;
 
+import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
@@ -12,6 +13,7 @@ public class Main {
 				try {
 					Launcher window = new Launcher();
 					window.setVisible(true);
+					window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
