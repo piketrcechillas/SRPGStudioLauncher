@@ -3,6 +3,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -204,17 +205,17 @@ public class Keybinding extends JFrame {
 		JLabel option_1 = new JLabel("Option 2");
 		
 		option2Field1 = new JTextField();
-		option2Field1.setText(keyboard[7]);
 		option2Field1.setEditable(false);
 		option2Field1.setColumns(10);
+		option2Field1.setText(keyboard[7]);
 		
 		option2Field1.addKeyListener(new CustomKeyListener(option2Field1));
 		option2Field1.addMouseListener(new CustomMouseListener(option2Field1));
 		
 		option2Field2 = new JTextField();
-		option2Field2.setText(keyboard2[7]);
 		option2Field2.setEditable(false);
 		option2Field2.setColumns(10);
+		option2Field2.setText(keyboard2[7]);
 		
 		option2Field2.addKeyListener(new CustomKeyListener(option2Field2));
 		option2Field2.addMouseListener(new CustomMouseListener(option2Field2));
@@ -237,8 +238,7 @@ public class Keybinding extends JFrame {
 		l_switchField2.addKeyListener(new CustomKeyListener(l_switchField2));
 		l_switchField2.addMouseListener(new CustomMouseListener(l_switchField2));
 		
-		JLabel r_switch = new JLabel("R Switch");
-		
+		r_switch = new JLabel("R Switch");
 		
 		r_switchField1 = new JTextField();
 		r_switchField1.setEditable(false);
@@ -353,6 +353,7 @@ public class Keybinding extends JFrame {
 				saveKeyboard();
 				Launcher.setKeyboardArray(keyboard);
 				Launcher.setKeyboard2Array(keyboard2);
+				JOptionPane.showMessageDialog(null, "Parameters saved successfully.", "Message", JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			}
 		});

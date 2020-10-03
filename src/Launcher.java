@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -57,7 +61,11 @@ public class Launcher extends JFrame {
 		UIManager.setLookAndFeel(lookAndFeel);
 		setBounds(100, 100, 416, 400);
 		
+		
+		
 		String path = new File("").getAbsolutePath();
+	
+		
 		
 		JButton btnNewButton_1 = new JButton("Launch");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -141,12 +149,15 @@ public class Launcher extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					writeToFile();
+					JOptionPane.showMessageDialog(null, "Settings saved.", "Message", JOptionPane.INFORMATION_MESSAGE);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
 			}
 		});
+		
+		getValue();
 		
 		 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -330,5 +341,68 @@ public class Launcher extends JFrame {
 		}
 		
 		game.close();
+	}
+	
+	public void getValue() {
+		try {
+			String content = new String(Files.readAllBytes(Paths.get("game.ini")));
+			System.out.println(content);
+			 Pattern p = Pattern.compile("(?<=HighPerf\\=).*");                        
+			 Matcher m = p.matcher(content);
+			 
+			 m.find();
+			 fpsCb.setSelectedIndex(Integer.parseInt(m.group()));
+
+			 
+			 p =  Pattern.compile("(?<=WindowMode\\=).*");     
+			 m = p.matcher(content);
+			 
+			 m.find();
+			 displayModeCb.setSelectedIndex(Integer.parseInt(m.group()));
+			 
+			 p =  Pattern.compile("(?<=HardwareAcceleration\\=).*");     
+			 m = p.matcher(content);
+			 m.find();
+			 hardwareCb.setSelectedIndex(Integer.parseInt(m.group()));
+			 
+			 p =  Pattern.compile("(?<=GamePadDInput\\=).*");     
+			 m = p.matcher(content);
+			 m.find();
+			 gamepadInputCb.setSelectedIndex(Integer.parseInt(m.group()));
+			 
+			 
+			 p =  Pattern.compile("(?<=NonActiveMusicPlay\\=).*");     
+			 m = p.matcher(content);
+			 m.find();
+			 backgroundMusicCb.setSelectedIndex(Integer.parseInt(m.group()));
+			 
+			 p =  Pattern.compile("(?<=HardwareFullScreen\\=).*");     
+			 m = p.matcher(content);
+			 m.find();
+			 fullScreenCb.setSelectedIndex(Integer.parseInt(m.group()));
+			 
+			 for(int i = 0; i < 15; i++) {
+				 p =  Pattern.compile("(?<=" + keys[i] + "\\=).*");    
+				 m = p.matcher(content);
+				 m.find();
+				 String res = m.group();
+				 String[] kb = res.split(",");
+				 if(kb.length == 1) {
+					 keyboard[i] = kb[0];
+				 }
+				 else {
+					 keyboard[i] = kb[0];
+					 keyboard2[i] = kb[1];
+				 }
+				 
+				 
+			 }
+			 
+			 
+			
+			
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "No config file found.", "Message", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 }
