@@ -353,7 +353,7 @@ public class Keybinding extends JFrame {
 				saveKeyboard();
 				Launcher.setKeyboardArray(keyboard);
 				Launcher.setKeyboard2Array(keyboard2);
-				JOptionPane.showMessageDialog(null, "Parameters saved successfully.", "Message", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Parameters saved successfully. You need to Save Settings or Launch to save keybindings.", "Message", JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			}
 		});

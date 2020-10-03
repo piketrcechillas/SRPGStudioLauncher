@@ -37,6 +37,11 @@ public class Launcher extends JFrame {
 	private static String[] fullscreen = {"Hardware", "Software"};
 	private static String[] backgroundMusic = {"Yes", "No"};
 	private static String[] gamepadInput = {"DirectInput", "XInput"};
+	
+	
+	private static String[] default1 = {"left", "up", "right", "down", "z", "x", "c", "shift", "a", "s", "x", "space", "f4", "f11", "esc"};
+	private static String[] default2 = {"", "", "", "", "enter", "ctrl", "", "", "", "", "ctrl", "rclick", "", "", ""};
+	
 	private static String[] keyboard = {"left", "up", "right", "down", "z", "x", "c", "shift", "a", "s", "x", "space", "f4", "f11", "esc"};
 	private static String[] keyboard2 = {"", "", "", "", "enter", "ctrl", "", "", "", "", "ctrl", "rclick", "", "", ""};
 	
@@ -389,6 +394,7 @@ public class Launcher extends JFrame {
 				 String[] kb = res.split(",");
 				 if(kb.length == 1) {
 					 keyboard[i] = kb[0];
+					 keyboard2[i] = "";
 				 }
 				 else {
 					 keyboard[i] = kb[0];
@@ -397,12 +403,14 @@ public class Launcher extends JFrame {
 				 
 				 
 			 }
-			 
-			 
-			
-			
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "No config file found.", "Message", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No config file found! Launcher will generate a new one!", "Message", JOptionPane.WARNING_MESSAGE);
+			keyboard = default1;
+			keyboard2 = default2;
+		} catch (IllegalStateException e) {
+			JOptionPane.showMessageDialog(null, "Config file is damaged! Launcher will generate a new one!", "Message", JOptionPane.WARNING_MESSAGE);
+			keyboard = default1;
+			keyboard2 = default2;
 		}
 	}
 }
